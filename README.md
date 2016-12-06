@@ -1,8 +1,8 @@
-# Hello World PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
+# Pitutando Apps [![bitHound Score][bithound-img]][bithound-url]
 
-A PhoneGap Hello World template
+pituteando.octopusgen.com
 
-## Usage
+## Uso
 
 #### PhoneGap CLI
 
