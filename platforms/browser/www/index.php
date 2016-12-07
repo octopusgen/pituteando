@@ -1,3 +1,19 @@
+<?php
+
+/*
+Author: Pradeep Khodke
+URL: http://www.codingcage.com/
+*/
+
+
+session_start();
+
+if(isset($_SESSION['user_session'])!="")
+{
+	header("Location: home.php");
+}
+
+?>
 <!DOCTYPE html>
 <!--
     Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
@@ -44,6 +60,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="login/jquery-1.11.3-jquery.min.js"></script>
+    <script type="text/javascript" src="login/validation.min.js"></script>
+    <link href="login/style.css" rel="stylesheet" type="text/css" media="screen">
+    <script type="text/javascript" src="login/script.js"></script>
+
       <!-- Include the compiled Ratchet CSS -->
       <link href="css/ratchet.css" rel="stylesheet">
 
@@ -56,36 +79,42 @@
 <body>
     <!-- Contenedor -->
     <div class="app content">
-            <header class="bar bar-nav">
-                    <h1 class="title">Pituteando</h1>
-            </header>
+        <header class="bar bar-nav">
+                <h1 class="title">Pituteando</h1>
+        </header>
 
-            <div class="content-padded">
+        <div class="content-padded">
 
-            <p>
-              <h1>Bienvenidos </h1>
-              <h2>h2. Heading</h2>
-            </p>
+          <div class="container">
+          <form class="form-signin" method="post" id="login-form">
 
-            <p>
-              <h3>h3. Heading</h3>
-              <h4>h4. Heading</h4>
-              <h5>h5. Heading</h5>
-              <h6>h6. Heading</h6>
+            <h2 class="form-signin-heading">Log In to WebApp.</h2><hr />
 
-            </p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco.</p>
-            </div>
+              <div id="error">
+                <!-- error will be shown here ! -->
+              </div>
 
-            <form>
-  <input type="text" placeholder="Full name">
-  <input type="search" placeholder="Search">
-  <textarea rows="5"></textarea>
-  <button class="btn btn-positive btn-block">Choose existing</button>
-</form>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email address" name="user_email" id="user_email" />
+                <span id="check-e"></span>
+              </div>
 
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
+            	     <span class="glyphicon glyphicon-log-in"></span> &nbsp; Sign In
+        			      </button>
+              </div>
+
+          </form>
+
+
+        </div>
+
+        </div>
     </div>
     <!-- Fin del contenedor -->
 
