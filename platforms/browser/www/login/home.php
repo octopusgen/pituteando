@@ -18,8 +18,8 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login Form using jQuery Ajax and PHP MySQL</title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
-<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> 
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="jquery-1.11.3-jquery.min.js"></script>
 <link href="style.css" rel="stylesheet" media="screen">
 
@@ -45,7 +45,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
             <li><a href="http://www.codingcage.com/search/label/PHP">PHP</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 			  <span class="glyphicon glyphicon-user"></span>&nbsp;Hi' <?php echo $row['user_name']; ?>&nbsp;<span class="caret"></span></a>
@@ -58,8 +58,8 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    
-    
+
+
 <div class="body-container">
 
 <div class="container">
@@ -98,7 +98,7 @@ Follow @CodingCage
 </table>
 
 
-        
+
 
 
 <script type="text/javascript">
