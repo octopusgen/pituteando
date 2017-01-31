@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -77,28 +76,15 @@ public class StatusBar extends CordovaPlugin {
         Log.v(TAG, "Executing action: " + action);
         final Activity activity = this.cordova.getActivity();
         final Window window = activity.getWindow();
-
         if ("_ready".equals(action)) {
             boolean statusBarVisible = (window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0;
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, statusBarVisible));
-            return true;
         }
 
         if ("show".equals(action)) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    // SYSTEM_UI_FLAG_FULLSCREEN is available since JellyBean, but we
-                    // use KitKat here to be aligned with "Fullscreen"  preference
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        int uiOptions = window.getDecorView().getSystemUiVisibility();
-                        uiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-                        uiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-                        window.getDecorView().setSystemUiVisibility(uiOptions);
-                        return;
-                    }
-
                     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
             });
@@ -109,17 +95,6 @@ public class StatusBar extends CordovaPlugin {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    // SYSTEM_UI_FLAG_FULLSCREEN is available since JellyBean, but we
-                    // use KitKat here to be aligned with "Fullscreen"  preference
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        int uiOptions = window.getDecorView().getSystemUiVisibility()
-                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-                        window.getDecorView().setSystemUiVisibility(uiOptions);
-                        return;
-                    }
-
                     window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
             });
