@@ -1,4 +1,8 @@
+# Pituteando Apps
+Pituteando es una apps que permite gestionar de manera rápida y eficiente distintos oficios y servicios que los usuarios publican. Permitiendo generar nuevos focos de trabajo de manera dinámica e interconectada con los demás usuarios.
+
 # Framework7 PhoneGap Application 
+El front-end se encuentra desarrollado utilizando F7. Mas información sobre el framework los invitamos a utilizarlo a través del siguiente link.
 
 > [Framework7](http://www.idangero.us/framework7) is a Mobile UI framework that can be used to build hybrid apps with PhoneGap. This template allows you to get started using Framework7 
   quickly. 
@@ -9,9 +13,10 @@
   Also, for an intro to Framework7, check out [this post on the PhoneGap blog](http://phonegap.com/blog/2015/11/30/framework7/).   
 
 
-## Usage
+## Implementación y uso
+Recomendamos utilizar PhoneGAP para la gestión y visualización del código fuente en tu dispositivo mobile.
     
-### PhoneGap CLI
+### PhoneGap Desktop
 
     $ phonegap create my-app --template phonegap-template-framework7
 
