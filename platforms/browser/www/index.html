@@ -1,97 +1,476 @@
+<!--
+####################################################################################
+
+                888
+                888
+                888
+ .d88b.  .d8888b888888 .d88b. 88888b. 888  888.d8888b  .d88b.  .d88b. 88888b.
+d88""88bd88P"   888   d88""88b888 "88b888  88888K     d88P"88bd8P  Y8b888 "88b
+888  888888     888   888  888888  888888  888"Y8888b.888  88888888888888  888
+Y88..88PY88b.   Y88b. Y88..88P888 d88PY88b 888     X88Y88b 888Y8b.    888  888
+ "Y88P"  "Y8888P "Y888 "Y88P" 88888P"  "Y88888 88888P' "Y88888 "Y8888 888  888
+                              888                          888
+                              888                     Y8b d88P
+                              888                      "Y88P"
+
+          ,'""`.		Código escrito por el equipo de @octopusgen - versión 0.1
+         / _  _ \		Proyecto -> octopusgen/pituteando
+         |(@)(@)|		Fecha de creación -> 31-enero-2017
+         )  __  (
+        /,'))((`.\
+       (( ((  )) ))
+        `\ `)(' /'
+
+####################################################################################
+-->
+
 <!DOCTYPE html>
 <html>
-<head>
-    <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 
-    <!-- Required meta tags-->
+  <!-- start (header_page) -->
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Your app title -->
-    <title>My App</title>
+    <title>Pituteando v0.1 (web-apps)</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="dist/css/framework7-icons.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+    <!-- firebase connection -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
-        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
-     -->
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCtG4sDA3E4_HyD1oKhg2KGMRlyQJHOq1A",
+        authDomain: "pituteando-9b28a.firebaseapp.com",
+        databaseURL: "https://pituteando-9b28a.firebaseio.com",
+        storageBucket: "pituteando-9b28a.appspot.com",
+        messagingSenderId: "130435358805"
+      };
+      firebase.initializeApp(config);
+      var provider = new firebase.auth.GoogleAuthProvider();
 
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+      provider.addScope('https://www.googleapis.com/auth/plus.login');
 
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
 
-<body>
-    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    </script>
+    <!-- end of firebase connection -->
+  </head>
+  <!-- end (header_page) -->
+
+  <!-- start (body_page) -->
+  <body>
+
+    <!-- Status bar overlay for fullscreen mode (ios-problem)-->
     <div class="statusbar-overlay"></div>
 
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
+
+    <!--login-->
+
+    <div class="login-screen">
+    <div class="view">
+      <div class="page">
+        <div class="page-content login-screen-content">
+          <div class="login-screen-title">Pituteando</div>
+          <form>
+            <div class="list-block">
+              <ul>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Usuario</div>
+                    <div class="item-input">
+                      <input type="text" name="usuario" placeholder="Ingresa tu Usuario">
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Contraseña</div>
+                    <div class="item-input">
+                      <input type="password" name="contrasena" placeholder="Ingresa tu Contraseña">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="list-block">
+              <ul>
+                <li><a href="#" class="item-link list-button">Ingresar</a></li>
+
+              </ul>
+              <div class="list-block-label">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <a href="javascript:app.login('facebook');"><i class="f7-icons">social_facebook_fill</i></a>
+                <a href="javascript:app.login('github');"><i class="f7-icons">social_github</i></a>
+                <a href="javascript:app.login('google');"><i class="f7-icons">social_googleplus</i>
+                <a href="javascript:app.login('linkedin');"><i class="f7-icons">social_linkedin_fill</i>
+                <a href="javascript:app.login('instagram');"><i class="f7-icons">social_instagram_fill</i>
+                <a href="javascript:app.login('twitter');"><i class="f7-icons">social_twitter_fill</i></a>
+                <p><a href="#" class="close-login-screen">Close Login Screen</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <!-- end of login-->
+
     <!-- Left panel with reveal effect-->
     <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-            <p>Left panel content goes here</p>
-        </div>
+      <div class="content-block">
+        <div class="list-block">
+                <ul>
+                  <li><a href="#" data-template="about" data-context-name="about" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Inicio</div>
+                      </div></a>
+                  </li>
+                  <li><a href="#" data-template="about" data-context-name="about" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Mi perfil</div>
+                      </div></a>
+                  </li>
+                  <li><a href="projects.html" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Mensajes</div>
+                      </div></a></li>
+                  <li><a href="cars.html" data-context-name="cars" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Mis Favoritos</div>
+                      </div></a></li>
+                  <li><a href="contacts.html" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Soporte</div>
+                      </div></a>
+                  </li>
+                  <li><a href="contacts.html" class="item-link item-content close-panel">
+                      <div class="item-inner">
+                        <div class="item-title">Cerrar Sesión</div>
+                      </div></a>
+                  </li>
+
+                </ul>
+
+                <p><a href="#" class="button button-big button-round active">Adquirir versión Premium</a>  </p>
+              </div>
+      </div>
     </div>
 
-    <!-- Views -->
+    <!-- Views-->
     <div class="views">
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Top Navbar-->
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Awesome App</div>
-                    <div class="right">
-                        <!--
-                          Right link contains only icon - additional "icon-only" class
-                          Additional "open-panel" class tells app to open panel when we click on this link
-                        -->
-                        <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-                    </div>
-                </div>
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <div class="navbar-inner">
+		  	<div class="left"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i> </a></div>
+
+          <div class="center">
+			    	<h3>Pituteando</h3>
+		    	</div>
+
+          <div class="right login">
+            <div class="page-content">
+              <div class="content-block">
+                <p><a href="#" class="open-login-screen f7-icons">person_fill</a></p>
+              </div>
             </div>
-            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-            <div class="pages navbar-through toolbar-through">
-                <!-- Page, "data-page" contains page name -->
-                <div data-page="index" class="page">
-                    <!-- Scrollable page content -->
-                    <div class="page-content">
-                        <div class="content-block">
-                            <p>Page content goes here</p>
-                            <!-- Link to another page -->
-                            <a href="about.html">About app</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Bottom Toolbar-->
-            <div class="toolbar">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
-                </div>
-            </div>
+          </div>
+
+</div>
         </div>
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Index Page-->
+          <div data-page="index" class="page">
+
+          <!-- Floating Action Button -->
+  		  <!-- Speed Dial Wrap -->
+  <div class="speed-dial">
+    <!-- FAB inside will open Speed Dial actions -->
+    <a href="#" class="floating-button">
+      <!-- First icon is visible when Speed Dial actions are closed -->
+      <i class="f7-icons">data_fill</i>
+      <!-- Second icon is visible when Speed Dial actions are opened -->
+      <i class="f7-icons">close_round</i>
+    </a>
+    <!-- Speed Dial Actions -->
+    <div class="speed-dial-buttons">
+      <!-- First Speed Dial button -->
+      <a href="#" data-template="about" data-context-name="about">
+        <i class="f7-icons">person_fill</i>
+      </a>
+      <!-- Second Speed Dial  button -->
+      <a href="#">
+        <i class="f7-icons">bolt_fill</i>
+      </a>
+      <!-- Third Speed Dial  button -->
+      <a href="#">
+        <i class="f7-icons">chat_fill</i>
+      </a>
+    </div>
+	</div>
+
+
+            <div class="page-content pull-to-refresh-content" data-ptr-distance="55">
+
+
+        <!-- Default pull to refresh layer-->
+    <div class="pull-to-refresh-layer">
+      <div class="preloader"></div>
+      <div class="pull-to-refresh-arrow"></div>
     </div>
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+
+
+<!-- Search Bar with "searchbar-init" class for auto initialization -->
+    <form class="searchbar searchbar-init" data-search-list=".list-block-search" data-search-in=".item-title" data-found=".searchbar-found" data-not-found=".searchbar-not-found">
+        <div class="searchbar-input">
+            <input type="search" placeholder="Busca un servicio o oficio..">
+            <a href="#" class="searchbar-clear"></a>
+        </div>
+        <a href="#" class="searchbar-cancel">Cancelar</a>
+    </form>
+
+    <div class="searchbar-overlay"></div>
+
+ 		<style>
+  .demo-card-header-pic .card-header {
+    height: 40vw;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .titulo_tarjeta {
+  	color: #FFFFFF;
+  	font-size: 22px;
+  }
+</style>
+
+
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+<div class="card demo-card-header-pic">
+  <div style="background-image:url(img/1206513.jpg)" valign="bottom" class="card-header color-white no-border titulo_tarjeta"><strong>Francisca Andrade</strong></div>
+  <div class="card-content">
+    <div class="card-content-inner">
+      <p class="color-gray">Realizo ventas de café a domicilio. Mi mejor habilidad es entregar nuestros productos lo más pronto posible. </p>
+      <p><strong>Horarios</strong></p>
+      <p>De lunes a viernes desde las 10:00 hasta las 20:00 hrs.</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="button">Agregar a Favoritos</a>
+    <a href="#" class="button button-fill color-green">Ver Pituto</a>
+  </div>
+</div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Bottom Toolbar-->
+        <div class="toolbar tabbar">
+          <div class="toolbar-inner">
+          		<a href="#tab1" class="tab-link active">
+            <i class="f7-icons">home</i>
+        </a>
+        <a href="#tab2" class="tab-link">
+            <i class="f7-icons">graph_round
+
+            </i>
+        </a>
+        <a href="#tab3" class="tab-link">
+            <i class="f7-icons">money_dollar</i>
+        </a>
+        <a href="#tab4" class="tab-link">
+            <i class="f7-icons">search_strong
+
+            </i>
+        </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Template7 templates-->
+    <script type="text/template7" id="about">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+          <div class="center sliding">About Me</div>
+          <div class="right"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+        </div>
+      </div>
+      <div class="pages">
+        <div data-page="about" class="page">
+          <div class="page-content">
+            <div class="content-block">
+              <div class="content-block-inner">
+                <p>Hello, my name is {{name}}. I am {{age}} years old and i am working as {{position}} at {{company}}.</p>
+                <p>I have a lot of interests: {{#if interests}}{{join interests delimeter=", "}}{{/if}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="dist/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
-</body>
+
+  </body>
+  <!-- end (body_page) -->
 
 </html>
